@@ -1,0 +1,57 @@
+<%- include("../../layouts/header.ejs") %>
+<%- include("../admin-sidebar.ejs") %>
+
+<div class="col-md-9">
+  <div class="dash-right">
+    <div class="dash-header">
+      <div class="dash-title">
+        <h1>About Section</h1>
+      </div>
+    </div>
+
+    <div class="card p-4">
+      <form action="/aboutupdate" method="POST" enctype="multipart/form-data">
+        <!-- Description -->
+        <div class="form-group">
+          <label for="about_desc" class="fw-bold">Description</label>
+          <textarea name="about_desc" id="about_desc" class="form-control" rows="10" required><%= about?.about_desc || '' %></textarea>
+        </div>
+
+        <!-- Image Upload -->
+        <div class="form-group">
+          <label for="image" class="fw-bold">Upload New Image</label>
+          <input class="form-control" type="file" name="image" accept="image/*">
+        </div>
+
+        <!-- Current Image Preview -->
+        <% if (about && about.image && about.image.url) { %>
+        <div class="form-group mb-3">
+          <label class="fw-bold">Current Image</label><br>
+          <img src="<%= about.image.url %>" width="150" class="rounded border shadow-sm">
+        </div>
+        <% } %>
+
+        <!-- Last Updated Time -->
+        <% if (about && about.updatedAt) { %>
+        <div class="form-group">
+          <label class="fw-bold">Last Updated:</label>
+          <p><%= new Date(about.updatedAt).toLocaleString('en-IN', {
+            day: 'numeric', month: 'long', year: 'numeric',
+            hour: '2-digit', minute: '2-digit'
+          }) %></p>
+        </div>
+        <% } %>
+
+        <!-- Submit -->
+        <div class="text-end">
+          <button type="submit" class="btn btn-primary px-4">Update About</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+</section>
+
+<%- include("../../layouts/footer.ejs") %>

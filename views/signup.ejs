@@ -1,0 +1,209 @@
+<%- include("./layouts/header.ejs") %>
+
+<style>
+  body {
+    /* background-color: #0e1217; */
+    color: #f0f0f0;
+    font-family: 'Segoe UI', sans-serif;
+
+    background-color: #2B2B2B;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' viewBox='0 0 1600 800'%3E%3Cg %3E%3Cpolygon fill='%23252525' points='1600 160 0 460 0 350 1600 50'/%3E%3Cpolygon fill='%231f1f1f' points='1600 260 0 560 0 450 1600 150'/%3E%3Cpolygon fill='%231a1a1a' points='1600 360 0 660 0 550 1600 250'/%3E%3Cpolygon fill='%23141414' points='1600 460 0 760 0 650 1600 350'/%3E%3Cpolygon fill='%230E0E0E' points='1600 800 0 800 0 750 1600 450'/%3E%3C/g%3E%3C/svg%3E");
+    background-attachment: fixed;
+    background-size: cover;
+  }
+
+  .login-wrap {
+    padding: 60px 0;
+  }
+
+  .login-container {
+    background-color: #10141a;
+    border-radius: 14px;
+    display: flex;
+    flex-wrap: wrap;
+    overflow: hidden;
+    box-shadow: 0 0 40px rgba(0, 255, 120, 0.05);
+  }
+
+  .form-section {
+    flex: 1 1 50%;
+    padding: 50px 40px;
+  }
+
+  .form-section h1 {
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 40px;
+    color: #30d98f;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  .form-control {
+    width: 100%;
+    background-color: #1a1f27;
+    border: 1px solid #2c323c;
+    color: #eee;
+    padding: 14px 16px;
+    border-radius: 8px;
+    font-size: 15px;
+    transition: border-color 0.3s;
+  }
+
+  .form-control:focus {
+    border-color: #30d98f;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(48, 217, 143, 0.2);
+  }
+
+  .form-control::placeholder {
+    color: #666;
+  }
+
+  .form-btn {
+    width: 100%;
+    background: #30d98f;
+    color: white;
+    font-weight: 600;
+    font-size: 16px;
+    border: none;
+    padding: 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(48, 217, 143, 0.4);
+  }
+
+  .form-btn:hover {
+    background: #26b27a;
+    box-shadow: 0 6px 18px rgba(48, 217, 143, 0.6);
+    transform: translateY(-1px);
+  }
+
+  .login-link {
+    margin-top: 25px;
+    text-align: center;
+    font-size: 14px;
+    position: relative;
+  }
+
+  .login-link a {
+    color: #30d98f;
+    text-decoration: none;
+    font-weight: 600;
+    position: relative;
+    padding-bottom: 2px;
+  }
+
+  .login-link a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 100%;
+    height: 2px;
+    background: #30d98f;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s ease;
+  }
+
+  .login-link a:hover {
+    color: #ffffff;
+  }
+
+  .login-link a:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  .image-section {
+    flex: 1 1 50%;
+    background-color: #10141a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+  }
+
+  .image-section img {
+    width: 70%;
+    max-width: 450px;
+    height: auto;
+    border-radius: 12px;
+  }
+
+  @media (max-width: 768px) {
+    .login-container {
+      flex-direction: column;
+    }
+
+    .image-section {
+      order: -1;
+      padding: 20px 10px;
+    }
+
+    .form-section {
+      padding: 30px 20px;
+    }
+  }
+
+  @media (min-width: 1200px) {
+    .image-section img {
+      max-width: 700px;
+    }
+  }
+</style>
+
+<section class="login-wrap">
+  <div class="container">
+    <div class="login-container d-flex align-items-center justify-content-center">
+
+      <!-- Form Section -->
+      <div class="form-section">
+        <h1>Sign Up</h1>
+        <% if(msg_success.length >0) { %>
+        <div class="alert alert-success">
+          <%= msg_success %>
+        </div>
+        <% } %>
+        <% if(msg_error.length > 0){ %>
+        <div class="alert alert-danger">
+          <%= msg_error %>
+        </div>
+        <% } %>
+        <form action="/register" method="post">
+          <div class="form-group">
+            <input type="text" name="name" class="form-control" placeholder="Name" required>
+          </div>
+          <div class="form-group">
+            <input type="email" name="email" class="form-control" placeholder="Email" required>
+          </div>
+          <div class="form-group">
+            <input type="password" name="password" class="form-control" placeholder="Password" required>
+          </div>
+          <div class="form-group">
+            <input type="password" name="confirmpassword" class="form-control" placeholder="Confirm Password" required>
+          </div>
+          <div class="form-group">
+            <button type="submit" class="form-btn">Sign Up</button>
+          </div>
+        </form>
+        <div class="login-link">
+          <a href="/login">Already have an account? Login</a>
+        </div>
+      </div>
+
+      <!-- Illustration Section -->
+      <div class="image-section">
+        <img src="/assets/images/signup.png" alt="Sign Up Illustration">
+      </div>
+
+
+    </div>
+  </div>
+</section>
+
+<%- include("./layouts/footer.ejs") %>

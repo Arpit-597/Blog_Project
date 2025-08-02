@@ -1,0 +1,141 @@
+<%- include("../../layouts/header.ejs") %>
+<%- include("../admin-sidebar.ejs") %>
+
+<div class="col-md-9">
+  <div class="dash-right">
+    <div class="dash-header">
+      <div class="dash-title">
+        <h1>Categories</h1>
+      </div>
+      <!-- Button trigger modal -->
+      <div class="text-center d-flex align-items-center">
+        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">
+          Add Category
+        </button>
+      </div>
+    </div>
+    <table class="table table-bordered table-striped">
+      <thead>
+
+        <tr>
+          <th>#ID</th>
+          <th>Category Name</th>
+          <th>Posted On</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% category.forEach((cat,index) => { %>
+        <tr>
+          <td><%= index + 1 %></td>
+          <td><%= cat.cat_name %></td>
+          <td><%= new Date(cat.createdAt).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                    }) %></td>
+          <td>
+            <!-- Button trigger modal -->
+            <div class="text-center d-flex align-items-center">
+              <button type="button" class="btn btn-info btn-sm mr-1" data-toggle="modal" data-target="#viewModal-<%= cat._id %>">
+                <i class="fas fa-eye"></i>
+              </button>
+              <button type="button" class="btn btn-warning btn-sm mr-1" data-toggle="modal" data-target="#EditModal-<%= cat._id %>">
+                <i class="fas fa-edit"></i>
+              </button>
+              <a href="/categorydelete/<%= cat._id %>" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
+          </td>
+        </tr>
+
+        <!-- Modal VIEW -->
+        <div class="modal fade" id="viewModal-<%= cat._id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">View Category</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="mb-3">
+                  <label><b>Category Name</b></label>
+                  <input type="text" name="cat_name" id="cat_name" class="form-control" readonly value="<%= cat.cat_name %>">
+                </div>
+
+                <div class="mb-3">
+                  <label><b>Created On</b></label>
+                  <input type="date" name="createdAt" id="createdAt" class="form-control" readonly value="<%= cat.createdAt.toISOString().split('T')[0] %>">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modal EDIT -->
+        <div class="modal fade" id="EditModal-<%= cat._id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit Category</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form action="/updatecategory/<%= cat._id %>" method="post">
+                  <!-- Title -->
+                  <div class="form-group">
+                    <label for="cat_name">Category Name</label>
+                    <input type="text" name="cat_name" id="cat_name" class="form-control" value="<%= cat.cat_name %>">
+                  </div>
+                  <!-- Submit Button -->
+                  <button type="submit" class="btn btn-primary mt-2">Submit</button>
+                </form>
+
+              </div>
+            </div>
+          </div>
+        </div>
+  </div>
+  <% }); %>
+  </tbody>
+  </table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- modal blog create  -->
+
+<!-- Modal ADD-->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Category</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="/insertcategory" method="post" enctype="multipart/form-data">
+          <!-- Title -->
+          <div class="form-group">
+            <label for="cat_name">Category Name</label>
+            <input type="text" name="cat_name" id="cat_name" class="form-control">
+          </div>
+          <!-- Submit Button -->
+          <button type="submit" class="btn btn-primary mt-2">Submit</button>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<%- include("../../layouts/footer.ejs") %>

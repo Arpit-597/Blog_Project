@@ -1,0 +1,117 @@
+<%- include("./layouts/header.ejs") %>
+
+<style>
+  body {
+    background-color: #111215;
+    color: #f8f9fa;
+    background-image: url(/assets/images/contact.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  .contact-section {
+    padding: 60px 0;
+  }
+
+  .contact-box {
+    background-color: rgba(26, 29, 34, 0.5); /* semi-transparent dark */
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 123, 255, 0.1);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px); /* Safari support */
+    border: 1px solid rgba(255, 255, 255, 0.15); /* subtle border */
+  }
+
+  .contact-box h2 {
+    font-weight: 700;
+    color: #30d98f;
+  }
+
+  .form-control {
+    background-color: #1c1f26;
+    border: 1px solid #333;
+    color: #f8f9fa;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 15px;
+  }
+
+  .form-control::placeholder {
+    color: #bbb;
+  }
+
+  .form-control:focus {
+    background-color: #1c1f26;
+    color: #fff;
+    border-color: #30d98f;
+    box-shadow: 0 0 0 2px rgba(48, 217, 143, 0.25);
+    outline: none;
+  }
+
+  .form-btn {
+    width: 50%;
+    background: #30d98f;
+    color: white;
+    font-weight: 600;
+    font-size: 16px;
+    border: none;
+    padding: 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(48, 217, 143, 0.4);
+  }
+
+  .form-btn:hover {
+    background: #26b27a;
+    box-shadow: 0 6px 18px rgba(48, 217, 143, 0.6);
+    transform: translateY(-1px);
+  }
+
+  @media (max-width: 768px) {
+    .form-btn {
+      width: 100%;
+    }
+  }
+</style>
+
+<section class="contact-section">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8 col-lg-7">
+        <div class="contact-box">
+          <h2 class="text-center mb-4">Contact Us</h2>
+          <form action="/insertContact" method="POST">
+            <div class="form-group mb-3">
+              <label for="name">Name</label>
+              <input type="text" name="name" id="name" class="form-control" placeholder="Enter your name" required value="<%= admin? admin.name : "" %>">
+            </div>
+
+            <div class="form-group mb-3">
+              <label for="email">Email</label>
+              <input type="email" name="email" id="email" class="form-control" placeholder="Enter your email" required value="<%= admin? admin.email : "" %>">
+            </div>
+
+            <div class="form-group mb-3">
+              <label for="phone">Phone</label>
+              <input type="tel" name="phone" id="phone" class="form-control" placeholder="Enter your phone number" required>
+            </div>
+
+            <div class="form-group mb-4">
+              <label for="message">Message</label>
+              <textarea name="message" id="message" rows="5" class="form-control" placeholder="Write your message..." required></textarea>
+            </div>
+
+            <div class="text-center">
+              <button type="submit" class="form-btn">Send Message</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%- include("./layouts/footer.ejs") %>

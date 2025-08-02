@@ -1,0 +1,61 @@
+<%- include("./layouts/header.ejs") %>
+
+<section class="blog-detail mtb-40">
+  <div class="container">
+    <div class="row">
+
+      <div class="col-md-8">
+        <div class="blog-left">
+          <h1><%= blog.title %></h1>
+          <div class="posted-on">
+            <p>by <span>Arpit Mittal</span> on <span><%= blog.createdAt.toLocaleDateString() %></span></p>
+          </div>
+          <div class="detail-img">
+            <img src="<%= blog.image.url %>" alt="blog1" width="100%" />
+          </div>
+          <div class="blog-desc">
+            <p><%- (blog.description).replace(/\r?\n/g, '<br>') %></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="blog-right">
+          <div class="right-widget recent-post">
+            <h3>Recent Blogs</h3>
+            <% recentblogs.forEach((recent)=>{ %>
+            <a href="/blogdetails/<%= recent._id %>" class="text-decoration-none">
+              <div class="rb-box">
+                <div class="rb-box-img">
+                  <img src="<%= recent.image.url %>" alt="blog1" />
+                </div>
+                <div class="rb-box-desc">
+                  <h4><%= recent.title %></h4>
+                  <p>
+                    Posted On:
+                    <%= new Date(blog.createdAt).toLocaleDateString('en-US', {
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric'
+                    }) %>
+                  </p>  
+                </div>
+              </div>
+            </a>
+            <% }) %>
+          </div>
+          <div class="right-widget categories">
+            <h3>Categories</h3>
+            <ul>
+              <% categories.forEach((category)=>{ %>
+                <li><a href="#" class="text-decoration-none"><%= category.cat_name %></a></li>
+              <% }) %>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%- include("./layouts/footer.ejs") %>

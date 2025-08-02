@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="/assets/images/favico.png" type="image/png" sizes="128x128">
+
+  <title>SoulScript</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="/assets/css/styles.css" rel="stylesheet">
+  <!-- Font Awesome 5.15.4 via jsDelivr -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+  <style>
+    nav.navbar.navbar-expand-md.navbar-dark.bg-blue {
+      position: sticky;
+      top: 0;
+      z-index: 1;
+    }
+
+    /* Initial state */
+    #mainNavbar {
+      background-color: rgba(0, 0, 0, 1);
+      /* Fully opaque */
+      transition: background-color 0.3s ease;
+    }
+
+    /* After scrolling */
+    #mainNavbar.scrolled {
+      background-color: rgba(0, 0, 0, 0.7);
+      /* 70% opaque */
+    }
+
+    nav .navbar-brand img {
+      height: 50px;
+      width: auto;
+    }
+
+    .navbar-nav .nav-link {
+      color: #fff;
+      font-weight: 500;
+      transition: color 0.2s ease-in-out;
+    }
+
+    .navbar-nav .nav-link:hover {
+      color: #007bff;
+      /* or your theme blue */
+    }
+
+    /* For Chrome, Edge, Safari */
+    ::-webkit-scrollbar {
+      width: 10px;
+      background-color: #111215;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #111215;
+      border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #0056b3;
+      border-radius: 10px;
+      border: 2px solid #111215;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #007bff;
+    }
+
+    #loadMoreBtn {
+      color: #007bff;
+      border-color: #007bff;
+    }
+
+    #loadMoreBtn:hover {
+      background-color: #007bff;
+      color: #fff;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrapper d-flex flex-column min-vh-100">
+    <nav class="navbar navbar-expand-md navbar-dark bg-blue sticky-top" id="mainNavbar">
+      <div class="container-fluid">
+        <!-- Logo -->
+        <a class="navbar-brand d-flex align-items-center" href="/">
+          <img src="/assets/images/logo.png" alt="Logo" style="height: 50px;" />
+        </a>
+
+        <!-- Toggler (for mobile) -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Navbar Links -->
+        <div class="collapse navbar-collapse justify-content-end" id="navbarCollapse">
+          <ul class="navbar-nav align-items-center gap-md-3">
+            <li class="nav-item">
+              <a class="nav-link" href="/">HOME</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/about">ABOUT</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/contact">CONTACT</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/blog">BLOG</a>
+            </li>
+
+            <% if (!admin) { %>
+            <li class="nav-item">
+              <a class="nav-link fw-bold" href="/login">LOGIN</a>
+            </li>
+            <% } else { %>
+            <!-- Dropdown for logged-in user -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle fw-bold" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <%= admin.name %>
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown" style="min-width: 150px;">
+                <% if (admin.role === 'admin') { %>
+                <li><a class="dropdown-item" href="/admin/dashboard">Dashboard</a></li>
+                <% } %>
+                <li><a class="dropdown-item" href="/logout">Logout</a></li>
+              </ul>
+            </li>
+            <% } %>
+          </ul>
+        </div>
+      </div>
+    </nav>
